@@ -29,38 +29,16 @@ class Graph:
             self._nodelist.append(node)
     
     def add_edge(self, node1, node2, attr_dict=None):
-        if((node1,node2) in self._edgelist or (node2,node1) in self._edgelist):
-            print("L' aresta (node1,node2) ja existeix!")
+        if node1 not in self.node.keys():
+            self.add_node(node1)
+        if node2 not in self.node.keys():
+            self.add_node(node2)
+        if attr_dict:
+            self.edge.setdefault(node1,{})[node2] = attr_dict
+            self.edge.setdefault(node2,{})[node1] = attr_dict
         else:
-            if node1 not in self._nodelist:
-                self.add_node(node1)
-            if node2 not in self._nodelist:
-                self.add_node(node2)
-            if(node1 in self._edgedict):
-                if(attr_dict==None):
-                    temp = self._edgedict[node1]
-                    temp[node2] = {}
-                    temp2 = {node1 : {}}
-                    self._edgedict[node1] = temp
-                    self._edgedict[node2] = temp2
-                else:
-                    temp = self._edgedict[node1]
-                    temp[node2] = attr_dict
-                    temp2 = {node1 : attr_dict}
-                    self._edgedict[node1] = temp
-                    self._edgedict[node2] = temp2
-            else:
-                if(attr_dict==None):
-                    temp = {node2 : {}}
-                    temp2 = {node1 : {}}
-                    self._edgedict[node1] = temp
-                    self._edgedict[node2] = temp2
-                else:
-                    temp = {node2 : attr_dict}
-                    temp2 = {node1 : attr_dict}
-                    self._edgedict[node1] = temp
-                    self._edgedict[node2] = temp2
-            self._edgelist.append((node1,node2))
+            self.edge.setdefault(node1,{})[node2] = {}
+            self.edge.setdefault(node2,{})[node1] = {}
     
     def add_nodes_from(self, node_list, attr_dict=None):
         for i in node_list:
