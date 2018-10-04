@@ -39,6 +39,10 @@ class Graph:
         else:
             self.edge.setdefault(node1,{})[node2] = {}
             self.edge.setdefault(node2,{})[node1] = {}
+        if (node1,node2) not in self._edgelist or (node1,node2) not in self._edgelist:
+           self._edgelist.append((node1,node2))
+           self._edgelist.append((node2,node1))
+           
         
         """if((node1,node2) in self._edgelist or (node2,node1) in self._edgelist):
             print("L' aresta (node1,node2) ja existeix!")
