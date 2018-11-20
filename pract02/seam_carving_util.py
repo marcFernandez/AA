@@ -11,7 +11,7 @@ def norm(image):
 def top3(mat, point):
     assert len(mat.shape) == 2
     
-    if point[0] == 0: return []
+    if point[0] == 0: return np.array([])
     if point[1] == 0: return np.array([mat[point[0]-1,point[1]], mat[point[0]-1,point[1]+1]])
     if point[1] == mat.shape[1]-1: return np.array([mat[point[0]-1,point[1]-1], mat[point[0]-1,point[1]]])
     return np.array([mat[point[0]-1,point[1]-1], mat[point[0]-1,point[1]], mat[point[0]-1,point[1]+1]])
